@@ -59,7 +59,7 @@ export const themeSettings = (mode) => {
 	return {
 		palette: {
 			mode: mode,
-			...(mode === "dark"
+			...(`${mode === "dark"}`
 				? {
 						// palette values for dark mode
 						primary: {
@@ -75,7 +75,7 @@ export const themeSettings = (mode) => {
 							main: colors.grey[700],
 						},
 						background: {
-							default: "#fcfcfc",
+							default: colors.grey[100],
 						},
 				  }),
 		},
@@ -88,7 +88,8 @@ export const ColorModeContext = createContext({
 });
 
 export const useMode = () => {
-	const [mode, setMode] = useState("dark");
+	const time = new Date().getHours();
+	const [mode, setMode] = useState(time > 18 ? "dark" : "light");
 
 	const colorMode = useMemo(
 		() => ({

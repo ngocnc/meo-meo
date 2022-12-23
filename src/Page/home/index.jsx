@@ -1,17 +1,27 @@
 import { Box, Container } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import { useQuery } from "@tanstack/react-query";
+import Card from "../../Components/card";
+import { fetchProduct } from "../../fetcher";
+import Loading from "../loading";
 
 const Home = () => {
+	const {
+		data: products,
+		isInitialLoading,
+		isError,
+		error,
+	} = useQuery(["products"], fetchProduct, {
+		staleTime: 1000,
+	});
+	if (isInitialLoading) {
+		return <Loading />;
+	}
+	if (isError) {
+		return <Box textAlign="center">Error...{error.message}</Box>;
+	}
 	return (
 		<Container maxWidth="xl">
-			<Box sx={{ flexGrow: 1 }}>
-				<Grid container spacing={2}>
-					<Grid xs={8}>xs=89999</Grid>
-					<Grid xs={4}>xs=4</Grid>
-					<Grid xs={4}>xs=4</Grid>
-					<Grid xs={8}>xs=8</Grid>
-				</Grid>
-			</Box>
+			<Card products={products} />
 		</Container>
 	);
 };

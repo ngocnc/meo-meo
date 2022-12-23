@@ -18,10 +18,10 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { FixHeader } from "../../Context";
 import { ColorModeContext, tokens } from "../../theme";
 import Navbar from "../menubar";
 
-const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const listsmenu = [
@@ -43,26 +43,28 @@ const Header = () => {
 	const theme = useTheme();
 	const colors = tokens(theme.palette.mode);
 	const colorMode = useContext(ColorModeContext);
-
 	const [anchorElNav, setAnchorElNav] = useState(null);
 	const [anchorElUser, setAnchorElUser] = useState(null);
-
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
 	};
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
 	};
-
 	const handleCloseNavMenu = () => {
 		setAnchorElNav(null);
 	};
-
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
+	const fixHeader = useContext(FixHeader);
 	return (
-		<AppBar position="static">
+		<AppBar
+			position="sticky"
+			sx={{
+				backgroundColor: `${fixHeader && "transparent"}`,
+				transition: "background .3s linear",
+			}}>
 			<Container maxWidth="xl">
 				<Toolbar>
 					<Avatar
@@ -91,7 +93,7 @@ const Header = () => {
 							}}>
 							{listsmenu?.map((menu) => (
 								<MenuItem key={menu.id} onClick={handleCloseNavMenu}>
-									<Navbar {...menu} />
+									<Navbar {...menu} fixHeader={fixHeader} />
 								</MenuItem>
 							))}
 						</Menu>
@@ -105,8 +107,13 @@ const Header = () => {
 							fontFamily: "monospace",
 						}}>
 						<Button>
-							<Link to="/" style={{ color: `${colors.grey[300]}` }}>
-								Mèo meo
+							<Link to="/" style={{ display: "block" }}>
+								<Typography
+									sx={{
+										color: `${fixHeader ? colors.grey[900] : colors.grey[300]}`,
+									}}>
+									Mèo meo
+								</Typography>
 							</Link>
 						</Button>
 					</Typography>
@@ -119,15 +126,27 @@ const Header = () => {
 						onClick={colorMode.toggleColorMode}
 						sx={{ margin: "0 16px" }}>
 						{theme.palette.mode === "dark" ? (
-							<LightModeOutlinedIcon sx={{ color: `${colors.grey[300]}` }} />
+							<LightModeOutlinedIcon
+								sx={{
+									color: `${fixHeader ? colors.grey[900] : colors.grey[300]}`,
+								}}
+							/>
 						) : (
-							<DarkModeOutlinedIcon sx={{ color: `${colors.grey[300]}` }} />
+							<DarkModeOutlinedIcon
+								sx={{
+									color: `${fixHeader ? colors.grey[900] : colors.grey[300]}`,
+								}}
+							/>
 						)}
 					</IconButton>
 					<Box sx={{ flexGrow: 0 }}>
 						<Tooltip title="Open settings">
 							<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-								<PersonOutlinedIcon sx={{ color: `${colors.grey[300]}` }} />
+								<PersonOutlinedIcon
+									sx={{
+										color: `${fixHeader ? colors.grey[900] : colors.grey[300]}`,
+									}}
+								/>
 							</IconButton>
 						</Tooltip>
 						<Menu
