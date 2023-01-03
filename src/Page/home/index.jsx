@@ -1,6 +1,6 @@
 import { Box, Container } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import Card from "../../Components/card";
+import Card from "../../Components/renderCard";
 import { fetchProduct } from "../../fetcher";
 import Loading from "../loading";
 
@@ -10,9 +10,7 @@ const Home = () => {
 		isInitialLoading,
 		isError,
 		error,
-	} = useQuery(["products"], fetchProduct, {
-		staleTime: 1000,
-	});
+	} = useQuery(["products"], fetchProduct);
 	if (isInitialLoading) {
 		return <Loading />;
 	}

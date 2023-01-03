@@ -18,7 +18,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { FixHeader } from "../../Context";
+import { FixHeader } from "../../Context/HeaderContext";
 import { ColorModeContext, tokens } from "../../theme";
 import Navbar from "../menubar";
 
@@ -33,9 +33,9 @@ const listsmenu = [
 	},
 	{
 		id: 2,
-		title: "About",
+		title: "Cart",
 		icon: <InfoOutlinedIcon />,
-		path: "about",
+		path: "cart",
 	},
 ];
 

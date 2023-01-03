@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-import FixHeaderProvider from "./Context";
+import CartContext from "./Context/CartContext";
+import FixHeaderProvider from "./Context/HeaderContext";
 import Router from "./router";
 import { ColorModeContext, useMode } from "./theme";
 
@@ -9,10 +10,13 @@ const App = () => {
 	return (
 		<FixHeaderProvider>
 			<ColorModeContext.Provider value={colorMode}>
-				<ThemeProvider theme={theme}>
-					<CssBaseline />
-					<Router />
-				</ThemeProvider>
+				<CartContext>
+					<ThemeProvider theme={theme}>
+						<CssBaseline />
+						<Router />
+						<CartContext />
+					</ThemeProvider>
+				</CartContext>
 			</ColorModeContext.Provider>
 		</FixHeaderProvider>
 	);

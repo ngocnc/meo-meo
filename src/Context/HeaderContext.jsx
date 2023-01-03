@@ -4,7 +4,6 @@ export const FixHeader = createContext();
 
 const FixHeaderProvider = ({ children }) => {
 	const [checkHeight, setCheckHeight] = useState(false);
-
 	const setFixed = () => {
 		if (window.scrollY > 45) {
 			setCheckHeight(true);

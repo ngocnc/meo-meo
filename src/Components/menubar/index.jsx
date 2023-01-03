@@ -1,7 +1,7 @@
 import { Typography, useTheme } from "@mui/material";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { FixHeader } from "../../Context";
+import { FixHeader } from "../../Context/HeaderContext";
 import { tokens } from "../../theme";
 
 const Navbar = ({ path, title, icon }) => {
